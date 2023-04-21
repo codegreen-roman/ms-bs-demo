@@ -57,6 +57,10 @@ public class BsMsRestController {
     public ResponseEntity<ReportResponse> makeReport(@RequestBody ReportRequest report) {
         ReportResponse response = new ReportResponse();
         BaseStation station = bsService.findOne(report.getBaseStationId());
+
+        // I guess the base station detectionRadiusInMeters could be uses as error_radius of
+        // the new mobile station position
+
         report.getReports().forEach(message -> {
             try {
                 MobileStation updated = msService.updateLocation(message.getMobileStationId(), station);
